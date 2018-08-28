@@ -1,9 +1,13 @@
-﻿namespace WindowsHelper.Interfaces
+﻿using System;
+
+namespace WindowsHelper.Interfaces
 {
-    public interface IPlugin
+    public interface IPlugin : IDisposable
     {
-        string Name { get; set; }
-        
+        string Name { get; }
+        ISettings Settings { get; }
+
         bool Init();
+        void DeInit();
     }
 }
