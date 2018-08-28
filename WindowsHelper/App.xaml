@@ -3,7 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WindowsHelper"
              StartupUri="MainWindow.xaml">
+    
     <Application.Resources>
-         
+         <ResourceDictionary>
+             <ResourceDictionary.MergedDictionaries>
+                 <!-- Color Theme -->
+                 <ResourceDictionary Source="Resources/WindowsHelperDarkStyle.xaml"/>
+                 
+                 <!-- Icon Templates -->
+                 <ResourceDictionary Source="Resources/IconTemplates.xaml"/>
+                 <ResourceDictionary Source="Spotify/Resources/SpotifyIconTemplates.xaml"/>
+                 
+                 <!-- Styles -->
+                 <ResourceDictionary Source="Resources/WindowsHelperButtonStyles.xaml"/>
+                 <ResourceDictionary Source="Resources/WindowsHelperTextBox.xaml"/>
+                 <ResourceDictionary Source="Resources/WindowsHelperScrollViewer.xaml"/>
+                 <ResourceDictionary Source="Resources/WindowsHelperCheckBox.xaml"/>
+
+                 <!-- Notify Icon -->
+                 <ResourceDictionary Source="NotifyIcon/NotifyIconResources.xaml"/>
+
+                 <!-- Template Selectors -->
+                 <ResourceDictionary Source="Spotify/ViewModels/Pages/SpotifyPagesTemplateSelector.xaml"/>
+             </ResourceDictionary.MergedDictionaries>
+         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using Lib.NotifyIconWpf;
+using Lib.Tools;
 
 namespace WindowsHelper
 {
@@ -13,5 +9,20 @@ namespace WindowsHelper
     /// </summary>
     public partial class App : Application
     {
+        private TaskbarIcon _notifyIcon;
+
+        protected override void OnStartup(StartupEventArgs args)
+        {
+            RegistryHelper.Initialize("WindowsHelper");
+
+            base.OnStartup(args);
+            _notifyIcon = (TaskbarIcon) FindResource("NotifyIcon");
+        }
+
+        protected override void OnExit(ExitEventArgs args)
+        {
+            _notifyIcon.Dispose();
+            base.OnExit(args);
+        }
     }
 }
