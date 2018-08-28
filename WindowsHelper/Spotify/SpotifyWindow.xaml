@@ -1,0 +1,96 @@
+﻿<Window x:Class="WindowsHelper.Spotify.SpotifyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WindowsHelper.Spotify"
+        xmlns:viewModels="clr-namespace:WindowsHelper.Spotify.ViewModels"
+        xmlns:interfaces="clr-namespace:WindowsHelper.Spotify.Interfaces"
+        xmlns:pages="clr-namespace:WindowsHelper.Spotify.ViewModels.Pages"
+        xmlns:tools="clr-namespace:Lib.Tools;assembly=Lib.Tools"
+        mc:Ignorable="d"
+        Title="Spotify" Height="450" Width="800"
+        WindowState="Maximized"
+        Background="{StaticResource DarkBackground}"
+        d:DataContext="{d:DesignInstance viewModels:SpotifyWindowViewModel, d:IsDesignTimeCreatable = True}">
+
+    <Window.Resources>
+        <tools:BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+        <DataTemplate x:Key="LibraryPagesTemplate" DataType="{x:Type interfaces:ISpotifyPage}">
+            <StackPanel Orientation="Horizontal" Height="30">
+                <Rectangle VerticalAlignment="Stretch" Margin="0,0,20,0" Width="5" Fill="{StaticResource SelectedToggleButton}" Visibility="{Binding IsSelected, Converter={StaticResource BoolToVis}, ConverterParameter=Hidden}"/>
+                <ToggleButton Content="{Binding Name}" IsChecked="{Binding IsSelected}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PlaylistTemplate" DataType="{x:Type interfaces:IPlaylist}">
+
+        </DataTemplate>
+
+        <DataTemplate x:Key="ActivityOfFriendsTemplate" DataType="{x:Type interfaces:IUser}">
+            
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo>
+            <TaskbarItemInfo.ThumbButtonInfos>
+                <ThumbButtonInfo DismissWhenClicked="False" Command="{Binding SkipPreviousCommand}" ImageSource="Resources/Icons/skip-previous.ico"/>
+                <ThumbButtonInfo DismissWhenClicked="False" Command="{Binding PlayCommand}" ImageSource="Resources/Icons/play.ico" Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVis}, ConverterParameter=Inverted}"/>
+                <ThumbButtonInfo DismissWhenClicked="False" Command="{Binding PauseCommand}" ImageSource="Resources/Icons/pause.ico" Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVis}}"/>
+                <ThumbButtonInfo DismissWhenClicked="False" Command="{Binding SkipNextCommand}" ImageSource="Resources/Icons/skip-next.ico"/>
+            </TaskbarItemInfo.ThumbButtonInfos>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/> 
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Vertical">
+                    <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource LightBorder}" Padding="10,10,10,2">
+                        <TextBlock Text="LIBRARY" Foreground="{StaticResource LightForeground}" HorizontalAlignment="Left" FontFamily="Consolas"/>
+                    </Border>
+                    <ItemsControl ItemsSource="{Binding Library}" ItemTemplate="{StaticResource LibraryPagesTemplate}"/>
+
+                    <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource LightBorder}" Padding="10,10,10,2">
+                        <TextBlock Text="PLAYLISTS" Foreground="{StaticResource LightForeground}" HorizontalAlignment="Left" FontFamily="Consolas"/>
+                    </Border>
+                    <ItemsControl ItemsSource="{Binding Playlists}" ItemTemplate="{StaticResource PlaylistTemplate}"/>
+                </StackPanel>
+            </ScrollViewer>
+            <Button Height="30" Command="{Binding CreateNewPlaylistCommand}" Padding="5">
+                <StackPanel Orientation="Horizontal">
+                    <ContentControl Template="{StaticResource PlaylistAdd}" Margin="5,0"/>
+                    <TextBlock Text="New Playlist" Margin="5,0" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <ScrollViewer Grid.Column="1" Grid.Row="0" Content="{Binding SelectedPage}" ContentTemplateSelector="{StaticResource SpotifyPagesTemplateSelector}" HorizontalScrollBarVisibility="Disabled"/>
+
+        <ScrollViewer Grid.Column="2" Grid.Row="0" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Vertical">
+                <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource LightBorder}" Padding="10,10,10,2">
+                    <TextBlock Text="Activity of your Friends" Foreground="{StaticResource LightForeground}" FontWeight="Bold" FontSize="14"/>
+                </Border>
+                <ItemsControl ItemsSource="{Binding Friends}" ItemTemplate="{StaticResource ActivityOfFriendsTemplate}"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1">
+
+        </Grid>
+    </Grid>
+</Window>
