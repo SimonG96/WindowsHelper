@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WindowsHelper.Spotify.ViewModels.Pages"
+                    xmlns:spotify="clr-namespace:WindowsHelper.Spotify">
+
+    <DataTemplate x:Key="HomePageTemplate" DataType="{x:Type local:SpotifyHomePageViewModel}">
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="ArtistPageTemplate" DataType="{x:Type local:SpotifyArtistPageViewModel}">
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="AlbumPageTemplate" DataType="{x:Type local:SpotifyAlbumPageViewModel}">
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="SongsPageTemplate" DataType="{x:Type local:SpotifySongsPageViewModel}">
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="RecentlyPlayedPageTemplate" DataType="{x:Type local:SpotifyRecentlyPlayedPageViewModel}">
+
+    </DataTemplate>
+
+    <local:SpotifyPagesTemplateSelector x:Key="SpotifyPagesTemplateSelector"
+                                        HomePageTemplate="{StaticResource HomePageTemplate}"
+                                        ArtistPageTemplate="{StaticResource ArtistPageTemplate}"
+                                        AlbumPageTemplate="{StaticResource AlbumPageTemplate}"
+                                        SongsPageTemplate="{StaticResource SongsPageTemplate}"
+                                        RecentlyPlayedPageTemplate="{StaticResource RecentlyPlayedPageTemplate}"/>
+
+</ResourceDictionary>
