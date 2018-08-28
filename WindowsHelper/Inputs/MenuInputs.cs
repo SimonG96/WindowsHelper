@@ -2,6 +2,8 @@
 {
     public enum MenuInputs
     {
-        Settings
+        Settings,
+        Spotify,
+        Exit
     }
 }
