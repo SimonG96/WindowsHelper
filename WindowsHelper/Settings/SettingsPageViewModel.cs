@@ -58,6 +58,13 @@ namespace WindowsHelper.Settings
             var properties = Settings.GetType().GetProperties().Where(p => p.IsDefined(typeof(SettingsPropertyAttribute), false));
             foreach (var property in properties)
             {
+                SettingsPropertyAttribute attribute = (SettingsPropertyAttribute) property.GetCustomAttributes(false).FirstOrDefault(a => a.GetType() == typeof(SettingsPropertyAttribute));
+                if (attribute == null)
+                    continue;
+
+                if (!attribute.SetManual)
+                    continue;
+
                 settingsEntries.Add(new SettingsEntryViewModel(property.Name, property.PropertyType, property.GetValue(Settings)));
             }
 

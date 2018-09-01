@@ -1,4 +1,4 @@
-﻿<Window x:Class="WindowsHelper.Settings.SettingsWindow"
+﻿<controls:WindowsHelperWindow x:Class="WindowsHelper.Settings.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,9 +7,11 @@
         xmlns:tools="clr-namespace:Lib.Tools;assembly=Lib.Tools"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        xmlns:controls="clr-namespace:WindowsHelper.Resources.UserControls"
         mc:Ignorable="d"
         Title="Settings" Height="450" Width="800"
-        Background="{StaticResource DarkBackground}"
+        IconTemplate="{StaticResource WindowsHelperIcon}"
+        Style="{StaticResource WindowsHelperWindowStyle}"
         d:DataContext="{d:DesignInstance local:SettingsWindowViewModel, IsDesignTimeCreatable=True}">
     
     <Window.Resources>
@@ -108,4 +110,4 @@
         <Border Grid.Column="1" Margin="-0.1,0,0,0" BorderThickness="1" VerticalAlignment="Stretch" BorderBrush="{StaticResource ColoredBorder}"/>
         <ItemsControl Grid.Column="2" Margin="5,0" ItemsSource="{Binding SelectedSettingsPage.SettingsEntries}" ItemTemplateSelector="{StaticResource SettingsEntryTemplateSelector}"/>
     </Grid>
-</Window>
+</controls:WindowsHelperWindow>

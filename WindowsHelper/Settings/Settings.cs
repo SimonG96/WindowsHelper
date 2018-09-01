@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using WindowsHelper.Interfaces;
 using Lib.Tools;
 
 namespace WindowsHelper.Settings
 {
-    public class Settings : ISettings
+    public class Settings : IWindowSettings
     {
         private readonly KeyCombination _defaultKeyCombination = new KeyCombination(Key.LeftAlt, Key.Space);
 
@@ -24,6 +25,19 @@ namespace WindowsHelper.Settings
 
 
 
+        [SettingsProperty(true, false)]
+        public double WindowHeight { get; set; }
+
+        [SettingsProperty(true, false)]
+        public double WindowWidth { get; set; }
+
+        [SettingsProperty(true, false)]
+        public double WindowTop { get; set; }
+
+        [SettingsProperty(true, false)]
+        public double WindowLeft { get; set; }
+
+
         [SettingsProperty]
         public bool IsActivated { get; set; } = true;
 
@@ -37,6 +51,30 @@ namespace WindowsHelper.Settings
         private void OnSettingsEntryValueChanged(object sender, EventArgs args)
         {
             SettingsEntryViewModel.SetPropertyForSettingsEntry(sender, this);
+        }
+
+        public void OnSettingsWindowSizeChanged(object sender, SizeChangedEventArgs args)
+        {
+            if (!(sender is SettingsWindow settingsWindow))
+                return;
+
+            if (settingsWindow.WindowState != WindowState.Normal)
+                return;
+
+            WindowHeight = args.NewSize.Height;
+            WindowWidth = args.NewSize.Width;
+        }
+
+        public void OnSettingsWindowLocationChanged(object sender, EventArgs args)
+        {
+            if (!(sender is SettingsWindow settingsWindow))
+                return;
+
+            if (settingsWindow.WindowState != WindowState.Normal)
+                return;
+
+            WindowTop = settingsWindow.Top;
+            WindowLeft = settingsWindow.Left;
         }
 
         #endregion Methods
