@@ -1,0 +1,79 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:WindowsHelper.Resources.UserControls">
+
+    <Style x:Key="WindowsHelperWindowStyle" TargetType="{x:Type controls:WindowsHelperWindow}" BasedOn="{StaticResource {x:Type Window}}">
+        <Setter Property="Background" Value="{StaticResource DarkBackground}"/>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CaptionHeight="28"
+                              GlassFrameThickness="0"
+                              ResizeBorderThickness="5"
+                              CornerRadius="0"
+                              UseAeroCaptionButtons="False"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:WindowsHelperWindow}">
+                    <Border BorderBrush="{StaticResource LightBorder}" BorderThickness="1" UseLayoutRounding="True">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid x:Name="moveHandler" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Background="Transparent"/>
+                            <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" BorderBrush="{StaticResource LightBorder}" BorderThickness="0,0,0,1"/>
+                            
+                            <!--Icon-->
+                            <ContentControl Grid.Column="0" Grid.Row="0" Margin="5" Template="{TemplateBinding IconTemplate}" Foreground="{StaticResource LightForeground}"/>
+
+                            <!--WindowButtons-->
+                            <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" UseLayoutRounding="True">
+                                <Button x:Name="minimizeButton" Height="24" Width="24" UseLayoutRounding="True" WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <Rectangle Width="10" Height="2" Margin="0,8,0,0" Fill="{StaticResource LightForeground}"/>
+                                </Button>
+                                <Button x:Name="restoreButton" Height="24" Width="24" UseLayoutRounding="True" WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <Grid>
+                                        <Canvas x:Name="restore" Width="10" Height="10">
+                                            <Rectangle Width="7" Height="7" Margin="3,0,0,0" Stroke="{StaticResource LightForeground}"/>
+                                            <Rectangle Width="7" Height="7" Margin="0,3,0,0" Stroke="{StaticResource LightForeground}"/>
+                                        </Canvas>
+                                        <Rectangle x:Name="maximize" Width="10" Height="10" Stroke="{StaticResource LightForeground}"/>
+                                    </Grid>
+                                </Button>
+                                <Button x:Name="closeButton" Height="24" Width="24" UseLayoutRounding="True" WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <ContentControl Template="{StaticResource Close}"/>
+                                </Button>
+                            </StackPanel>
+
+                            <!--Content-->
+                            <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="{TemplateBinding Background}">
+                                <ContentPresenter/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="restore" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="maximize" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="WindowState" Value="Normal">
+                            <Setter TargetName="restore" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="maximize" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -24,5 +24,11 @@
     <SolidColorBrush x:Key="CheckBoxCheckColor" Color="OrangeRed"/>
 
     <!-- ScrollViewer --> <!--TODO-->
+    
+    <!--ToastNotification-->
+    <SolidColorBrush x:Key="InfoForeground" Color="#F1F2F3"/>
+    <SolidColorBrush x:Key="WarningForeground" Color="Yellow"/>
+    <SolidColorBrush x:Key="ErrorForeground" Color="Red"/>
+    <SolidColorBrush x:Key="SpotifyForeground" Color="#F1F2F3"/>
 
 </ResourceDictionary>
