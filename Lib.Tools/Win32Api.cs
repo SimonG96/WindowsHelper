@@ -25,6 +25,10 @@ namespace Lib.Tools
 
 
         [DllImport("user32.dll")]
+        public static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
+
+
+        [DllImport("user32.dll")]
         public static extern bool GetCaretPos(out Point lpPoint);
 
 
@@ -119,6 +123,24 @@ namespace Lib.Tools
             public IntPtr HWndMoveSize;
             public IntPtr HWndCaret;
             public W32Rect RcCaret;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct W32MinMaxInfo
+        {
+            public Point ptReserved;
+            public Point ptMaxSize;
+            public Point ptMaxPosition;
+            public Point ptMinTrackSize;
+            public Point ptMaxTrackSize;
+        }
+
+        public static class MessageId
+        {
+            public const int WM_CLIPBOARDUPDATE = 0x031D;
+            public const int WM_GETMINMAXINFO = 0x0024;
+            public const int WM_HOTKEY = 0x0312;
+            public const int WM_PASTE = 0x0302;
         }
 
         public static class HotkeyId

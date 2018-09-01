@@ -6,6 +6,8 @@ namespace Lib.Tools
 {
     public static class WindowHelper
     {
+        private const int MONITOR_DEFAULT_NEAREST = 0x00000002;
+
         public static void ShowCenteredToMouse(this Window window)
         {
             //IntPtr hWnd = Win32Api.GetForegroundWindow();
@@ -35,6 +37,27 @@ namespace Lib.Tools
         {
             PrepareWindow(window);
             return window.ShowDialog();
+        }
+
+        public static void Maximize(Window window, IntPtr hWnd)
+        {
+            IntPtr monitor = Win32Api.MonitorFromWindow(hWnd, MONITOR_DEFAULT_NEAREST);
+
+            if (monitor == IntPtr.Zero)
+                return;
+
+            Win32Api.W32MonitorInfo monitorInfo = new Win32Api.W32MonitorInfo()
+            {
+                Size = Marshal.SizeOf(typeof(Win32Api.W32MonitorInfo))
+            };
+
+            Win32Api.GetMonitorInfo(monitor, ref monitorInfo);
+            Win32Api.W32Rect rcWorkArea = monitorInfo.WorkArea;
+            Win32Api.W32Rect rcMonitorArea = monitorInfo.Monitor;
+            window.Left = Math.Abs(rcWorkArea.Left - rcMonitorArea.Left);
+            window.Top = Math.Abs(rcWorkArea.Top - rcMonitorArea.Top);
+            window.Width = Math.Abs(rcWorkArea.Right - rcWorkArea.Left);
+            window.Height = Math.Abs(rcWorkArea.Bottom - rcWorkArea.Top);
         }
 
         private static void PrepareWindow(Window window)
@@ -70,7 +93,7 @@ namespace Lib.Tools
 
         private static Win32Api.W32Rect GetMonitor(Win32Api.W32Point position)
         {
-            IntPtr monitorHandle = Win32Api.MonitorFromPoint(position, 0x00000002); //0x00000002: return nearest monitor if pt is not contained in any monitor
+            IntPtr monitorHandle = Win32Api.MonitorFromPoint(position, MONITOR_DEFAULT_NEAREST); //0x00000002: return nearest monitor if pt is not contained in any monitor
             Win32Api.W32MonitorInfo monitorInfo = new Win32Api.W32MonitorInfo
             {
                 Size = Marshal.SizeOf(typeof(Win32Api.W32MonitorInfo))
