@@ -1,18 +1,20 @@
-﻿<Window x:Class="WindowsHelper.Spotify.SpotifyWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WindowsHelper.Spotify"
-        xmlns:viewModels="clr-namespace:WindowsHelper.Spotify.ViewModels"
-        xmlns:interfaces="clr-namespace:WindowsHelper.Spotify.Interfaces"
-        xmlns:pages="clr-namespace:WindowsHelper.Spotify.ViewModels.Pages"
-        xmlns:tools="clr-namespace:Lib.Tools;assembly=Lib.Tools"
-        mc:Ignorable="d"
-        Title="Spotify" Height="450" Width="800"
-        WindowState="Maximized"
-        Background="{StaticResource DarkBackground}"
-        d:DataContext="{d:DesignInstance viewModels:SpotifyWindowViewModel, d:IsDesignTimeCreatable = True}">
+﻿<controls:WindowsHelperWindow x:Class="WindowsHelper.Spotify.SpotifyWindow"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"        
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:local="clr-namespace:WindowsHelper.Spotify"
+                              xmlns:viewModels="clr-namespace:WindowsHelper.Spotify.ViewModels"
+                              xmlns:interfaces="clr-namespace:WindowsHelper.Spotify.Interfaces"
+                              xmlns:pages="clr-namespace:WindowsHelper.Spotify.ViewModels.Pages"
+                              xmlns:tools="clr-namespace:Lib.Tools;assembly=Lib.Tools"
+                              xmlns:controls="clr-namespace:WindowsHelper.Resources.UserControls"
+                              mc:Ignorable="d"
+                              Title="Spotify"
+                              WindowState="Maximized"
+                              Style="{StaticResource WindowsHelperWindowStyle}"
+                              IconTemplate="{StaticResource SpotifyIcon}"
+                              d:DataContext="{d:DesignInstance viewModels:SpotifyWindowViewModel, d:IsDesignTimeCreatable = True}">
 
     <Window.Resources>
         <tools:BooleanToVisibilityConverter x:Key="BoolToVis"/>
@@ -93,4 +95,4 @@
 
         </Grid>
     </Grid>
-</Window>
+</controls:WindowsHelperWindow>
