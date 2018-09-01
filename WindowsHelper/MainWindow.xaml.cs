@@ -15,10 +15,6 @@ namespace WindowsHelper
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int WM_CLIPBOARDUPDATE = 0x031D;
-        private const int WM_HOTKEY = 0x0312;
-        private const int WM_PASTE = 0x0302;
-
         private IntPtr _windowHandle;
         private HwndSource _hwndSource;
 
@@ -54,7 +50,7 @@ namespace WindowsHelper
         {
             switch (msg)
             {
-                case WM_HOTKEY:
+                case Win32Api.MessageId.WM_HOTKEY:
                 {
                     switch (wParam.ToInt32())
                     {
@@ -84,7 +80,7 @@ namespace WindowsHelper
 
                     break;
                 }
-                case WM_CLIPBOARDUPDATE:
+                case Win32Api.MessageId.WM_CLIPBOARDUPDATE:
                 {
                     ClipboardUpdatedEvent.RaiseClipboardUpdatedEvent(this);
                     break;

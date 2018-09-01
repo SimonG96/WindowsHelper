@@ -35,6 +35,8 @@ namespace WindowsHelper.ViewModels
         //  - (d) Move Win32 stuff in extra class (Win32Api or similar)
         //  - make version that is able to update automatically
         //  - add icons to notify Icon context menu?
+        //  - write a Log File with exceptions usw.
+        //  - (small popup)/toast notification from notify icon when exception occurs?
         //
         // MouseOver/Selection via Keyboard:
         //  - (d) MouseOver has to change a Property 'Selected'
@@ -52,7 +54,7 @@ namespace WindowsHelper.ViewModels
         //  - save all entries on closing? (needs init at start)
         //  - add search box to search old entries?
         //  - add possibility to edit pinned entries in settings?
-        //  - add try/catch around clipboard methods -> application should not crash when accessing the clipboard fails
+        //  - (d) add try/catch around clipboard methods -> application should not crash when accessing the clipboard fails
         //
         // Spotify:
         //  - use .net Api from GitHub
@@ -61,6 +63,8 @@ namespace WindowsHelper.ViewModels
         // Additional Plugins:
         //  - Spotify Viewer/Player (use Thumbnail/Taskbar Toolbar)
         //-----------------------------------------------------------------------------
+
+        private const string SETTING_KEY = "Setting.";
 
         private Visibility _isTextboxVisible = Visibility.Collapsed;
         private string _textboxText;
@@ -83,12 +87,9 @@ namespace WindowsHelper.ViewModels
             DropdownItems.EnableCollectionSynchronization();
 
             Settings = new Settings.Settings(this);
-            //List<ISettings> settingsList = new List<ISettings>()
-            //{
-            //    Settings
-            //};
+            LoadSettings();
 
-            //TODO: Add List of Plugins and call init()), maybe work with attributes here aswell and find all plugins from existing classes?;
+            //TODO: Add List of Plugins and call init()), maybe work with attributes here as well and find all plugins from existing classes?
             Plugins = new List<IPlugin>
             {
                 new ClipboardManager.ClipboardManager(),
@@ -166,6 +167,7 @@ namespace WindowsHelper.ViewModels
         public ICommand PreviewKeyDownCommand => new RelayCommand<KeyEventArgs>(PreviewKeyDown);
         public ICommand DeactivatedCommand => new RelayCommand(Deactivated);
         public ICommand ClearTextboxCommand => new RelayCommand(ClearTextbox);
+        public ICommand ClosingCommand => new RelayCommand(OnClosing);
 
 
         #endregion Commands
@@ -241,11 +243,6 @@ namespace WindowsHelper.ViewModels
         private void Deactivated()
         {
             MainWindowEnabledEvent.RaiseMainWindowEnabledEvent(this, false);
-
-            foreach (var plugin in Plugins)
-            {
-                plugin.DeInit();
-            }
         }
 
         private void ClearTextbox()
@@ -335,7 +332,7 @@ namespace WindowsHelper.ViewModels
             }
         }
 
-        private void OnShowSettingsWindow(object sender, EventArgs args)
+        private void OnShowSettingsWindow(object sender, EventArgs args) //TODO: Check if settings window is already opened
         {
             List<ISettings> settings = new List<ISettings>()
             {
@@ -347,13 +344,61 @@ namespace WindowsHelper.ViewModels
                 settings.Add(plugin.Settings);
             }
 
-            SettingsWindow settingsWindow = new SettingsWindow();
+            SettingsWindow settingsWindow = new SettingsWindow(Settings, Settings.OnSettingsWindowSizeChanged, Settings.OnSettingsWindowLocationChanged);
             SettingsWindowViewModel settingsWindowViewModel = new SettingsWindowViewModel(settings);
             settingsWindow.DataContext = settingsWindowViewModel;
             settingsWindow.Owner = Application.Current.MainWindow;
+            //settingsWindow.SizeChanged += Settings.OnSettingsWindowSizeChanged;
+            //settingsWindow.LocationChanged += Settings.OnSettingsWindowLocationChanged;
             settingsWindow.ShowDialog();
         }
 
+        private void SaveSettings()
+        {
+            var properties = Settings.GetType().GetProperties().Where(p => p.IsDefined(typeof(SettingsPropertyAttribute), false));
+            foreach (var property in properties)
+            {
+                SettingsPropertyAttribute attribute = (SettingsPropertyAttribute)property.GetCustomAttributes(false).FirstOrDefault(a => a.GetType() == typeof(SettingsPropertyAttribute));
+                if (attribute == null)
+                    continue;
+
+                if (!attribute.Save)
+                    continue;
+
+                RegistryHelper.Instance.Set($"{SETTING_KEY}{property.Name}", property.GetValue(Settings));
+            }
+        }
+
+        private void LoadSettings()
+        {
+            var properties = Settings.GetType().GetProperties().Where(p => p.IsDefined(typeof(SettingsPropertyAttribute), false));
+            foreach (var property in properties)
+            {
+                SettingsPropertyAttribute attribute = (SettingsPropertyAttribute)property.GetCustomAttributes(false).FirstOrDefault(a => a.GetType() == typeof(SettingsPropertyAttribute));
+                if (attribute == null)
+                    continue;
+
+                if (!attribute.Save)
+                    continue;
+
+                string key = $"{SETTING_KEY}{property.Name}";
+                if (!RegistryHelper.Instance.Exists(key))
+                    continue;
+
+                var value = RegistryHelper.Instance.GetObject(key, property.GetValue(Settings));
+                property.SetValue(Settings, value);
+            }
+        }
+
+        private void OnClosing()
+        {
+            SaveSettings();
+
+            foreach (var plugin in Plugins)
+            {
+                plugin.DeInit();
+            }
+        }
 
         private void Close()
         {

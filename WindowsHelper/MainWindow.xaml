@@ -26,6 +26,9 @@
         <i:EventTrigger EventName="Deactivated">
             <i:InvokeCommandAction Command="{Binding DeactivatedCommand}"/>
         </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding ClosingCommand}"/>
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Window.Resources>
