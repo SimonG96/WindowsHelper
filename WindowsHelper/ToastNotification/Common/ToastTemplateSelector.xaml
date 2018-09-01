@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WindowsHelper.ToastNotification.Common"
+                    xmlns:viewModels="clr-namespace:WindowsHelper.ToastNotification.ViewModels">
+
+    <DataTemplate x:Key="InfoTemplate" DataType="{x:Type viewModels:ToastWindowViewModel}">
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="WarningTemplate" DataType="{x:Type viewModels:ToastWindowViewModel}">
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="ErrorTemplate" DataType="{x:Type viewModels:ToastWindowViewModel}">
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="SpotifyTemplate" DataType="{x:Type viewModels:ToastWindowViewModel}">
+
+    </DataTemplate>
+
+
+    <local:ToastTemplateSelector x:Key="ToastTemplateSelector"
+                                 InfoTemplate="{StaticResource InfoTemplate}"
+                                 WarningTemplate="{StaticResource WarningTemplate}"
+                                 ErrorTemplate="{StaticResource ErrorTemplate}"
+                                 SpotifyTemplate="{StaticResource SpotifyTemplate}"/>
+
+</ResourceDictionary>
