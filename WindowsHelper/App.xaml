@@ -8,17 +8,18 @@
          <ResourceDictionary>
              <ResourceDictionary.MergedDictionaries>
                  <!-- Color Theme -->
-                 <ResourceDictionary Source="Resources/WindowsHelperDarkStyle.xaml"/>
+                 <ResourceDictionary Source="Resources/Styles/WindowsHelperDarkStyle.xaml"/>
                  
                  <!-- Icon Templates -->
                  <ResourceDictionary Source="Resources/IconTemplates.xaml"/>
                  <ResourceDictionary Source="Spotify/Resources/SpotifyIconTemplates.xaml"/>
                  
                  <!-- Styles -->
-                 <ResourceDictionary Source="Resources/WindowsHelperButtonStyles.xaml"/>
-                 <ResourceDictionary Source="Resources/WindowsHelperTextBox.xaml"/>
-                 <ResourceDictionary Source="Resources/WindowsHelperScrollViewer.xaml"/>
-                 <ResourceDictionary Source="Resources/WindowsHelperCheckBox.xaml"/>
+                 <ResourceDictionary Source="Resources/Styles/WindowsHelperButtonStyles.xaml"/>
+                 <ResourceDictionary Source="Resources/Styles/WindowsHelperTextBoxStyle.xaml"/>
+                 <ResourceDictionary Source="Resources/Styles/WindowsHelperScrollViewerStyle.xaml"/>
+                 <ResourceDictionary Source="Resources/Styles/WindowsHelperCheckBoxStyle.xaml"/>
+                 <ResourceDictionary Source="Resources/Styles/WindowsHelperWindowStyle.xaml"/>
 
                  <!-- Notify Icon -->
                  <ResourceDictionary Source="NotifyIcon/NotifyIconResources.xaml"/>
