@@ -5,6 +5,7 @@ using WindowsHelper.Events;
 using WindowsHelper.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Lib.Tools;
 
 namespace WindowsHelper.ClipboardManager
 {
@@ -99,11 +100,10 @@ namespace WindowsHelper.ClipboardManager
         
         #region Methods
 
-        private void Paste() //TODO: Rearange ClipboardObjects in ClipboardManager
+        private void Paste()
         {
-            Clipboard.SetDataObject(Data);
-            //ApplicationCommands.Paste.Execute(this);
-            PasteEvent.RaisePasteEvent(this);
+            if (ClipboardHelper.SetDataObject(Data, ClipboardManager.OPEN_CLIPBOARD_TRIES))
+                PasteEvent.RaisePasteEvent(this);
         }
 
         private void MouseEnter()

@@ -4,13 +4,17 @@ using System.Linq;
 using System.Windows;
 using WindowsHelper.Events;
 using WindowsHelper.Interfaces;
+using WindowsHelper.Settings;
 using Lib.Tools;
 
 namespace WindowsHelper.ClipboardManager
 {
     public class ClipboardManager : IPlugin
     {
+        public const int OPEN_CLIPBOARD_TRIES = 5;
+
         private const string PINNED_ENTRY_KEY = "PinnedEntry.";
+        private const string SETTING_KEY = "Setting.";
 
         public ClipboardManager()
         {
@@ -40,12 +44,15 @@ namespace WindowsHelper.ClipboardManager
         public bool Init()
         {
             LoadPinnedItems();
+            LoadSettings();
             return true;
         }
 
         public void DeInit()
         {
             //TODO: Maybe save entries?
+
+            SaveSettings();
         }
 
         private void OnClipboardUpdate(object sender, EventArgs args) //TODO: Either remove entries with the same data or don't add on paste
@@ -53,15 +60,14 @@ namespace WindowsHelper.ClipboardManager
             object data = null;
             ClipboardObjectType type = ClipboardObjectType.NoData;
 
-            if (Clipboard.ContainsText())
+            if (ClipboardHelper.ContainsText(OPEN_CLIPBOARD_TRIES))
             {
-                //data = Clipboard.GetDataObject()?.GetData(DataFormats.Text);
-                data = Clipboard.GetText();
+                data = ClipboardHelper.GetText(OPEN_CLIPBOARD_TRIES);
                 type = ClipboardObjectType.String;
             }
-            else if (Clipboard.ContainsImage())
+            else if (ClipboardHelper.ContainsImage(OPEN_CLIPBOARD_TRIES))
             {
-                data = Clipboard.GetImage();
+                data = ClipboardHelper.GetImage(OPEN_CLIPBOARD_TRIES);
                 type = ClipboardObjectType.Image;
             }
 
@@ -170,6 +176,42 @@ namespace WindowsHelper.ClipboardManager
                 SavedClipboardObjects.Remove(clipboardObject);
         }
 
+        private void SaveSettings()
+        {
+            var properties = Settings.GetType().GetProperties().Where(p => p.IsDefined(typeof(SettingsPropertyAttribute), false));
+            foreach (var property in properties)
+            {
+                SettingsPropertyAttribute attribute = (SettingsPropertyAttribute)property.GetCustomAttributes(false).FirstOrDefault(a => a.GetType() == typeof(SettingsPropertyAttribute));
+                if (attribute == null)
+                    continue;
+
+                if (!attribute.Save)
+                    continue;
+
+                RegistryHelper.Instance.SubKey(Name).Set($"{SETTING_KEY}{property.Name}", property.GetValue(Settings));
+            }
+        }
+
+        private void LoadSettings()
+        {
+            var properties = Settings.GetType().GetProperties().Where(p => p.IsDefined(typeof(SettingsPropertyAttribute), false));
+            foreach (var property in properties)
+            {
+                SettingsPropertyAttribute attribute = (SettingsPropertyAttribute)property.GetCustomAttributes(false).FirstOrDefault(a => a.GetType() == typeof(SettingsPropertyAttribute));
+                if (attribute == null)
+                    continue;
+
+                if (!attribute.Save)
+                    continue;
+
+                string key = $"{SETTING_KEY}{property.Name}";
+                if (!RegistryHelper.Instance.SubKey(Name).Exists(key))
+                    continue;
+
+                var value = RegistryHelper.Instance.SubKey(Name).GetObject(key, property.GetValue(Settings));
+                property.SetValue(Settings, value);
+            }
+        }
 
         public void Dispose()
         {

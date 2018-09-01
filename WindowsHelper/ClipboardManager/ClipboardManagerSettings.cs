@@ -27,6 +27,7 @@ namespace WindowsHelper.ClipboardManager
         public string Name => "Clipboard Manager";
         public object Parent { get; }
 
+
         [SettingsProperty]
         public KeyCombination PasteKeyCombination { get; set; }
 
