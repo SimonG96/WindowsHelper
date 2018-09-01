@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="ClipboardManager\ClipboardObjectType.cs" />
     <Compile Include="ClipboardManager\ClipboardObjectViewModel.cs" />
+    <Compile Include="Common\ExceptionHandler.cs" />
     <Compile Include="Events\ClipboardUpdatedEvent.cs" />
     <Compile Include="Events\CloseRequestedEvent.cs" />
     <Compile Include="Events\MainWindowEnabledEvent.cs" />
@@ -108,7 +109,9 @@
     <Compile Include="Inputs\MenuInputs.cs" />
     <Compile Include="Interfaces\IPlugin.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
+    <Compile Include="Interfaces\IWindowSettings.cs" />
     <Compile Include="NotifyIcon\NotifyIconViewModel.cs" />
+    <Compile Include="Resources\UserControls\WindowsHelperWindow.cs" />
     <Compile Include="Settings\SettingsEntryTemplateSelector.cs" />
     <Compile Include="Settings\SettingsEntryViewModel.cs" />
     <Compile Include="Settings\SettingsPageViewModel.cs" />
@@ -132,6 +135,13 @@
     <Compile Include="Spotify\ViewModels\Pages\SpotifyRecentlyPlayedPageViewModel.cs" />
     <Compile Include="Spotify\ViewModels\Pages\SpotifySongsPageViewModel.cs" />
     <Compile Include="Spotify\ViewModels\SpotifyWindowViewModel.cs" />
+    <Compile Include="ToastNotification\Common\ToastTemplateSelector.cs" />
+    <Compile Include="ToastNotification\Enums\ToastBehaviour.cs" />
+    <Compile Include="ToastNotification\Enums\ToastType.cs" />
+    <Compile Include="ToastNotification\ToastWindow.xaml.cs">
+      <DependentUpon>ToastWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToastNotification\ViewModels\ToastWindowViewModel.cs" />
     <Compile Include="ViewModels\DropdownItemViewModel.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Page Include="ClipboardManager\ClipboardManagerWindow.xaml">
@@ -159,23 +169,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\WindowsHelperButtonStyles.xaml">
+    <Page Include="Resources\Styles\WindowsHelperButtonStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\WindowsHelperCheckBox.xaml">
+    <Page Include="Resources\Styles\WindowsHelperCheckBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\WindowsHelperDarkStyle.xaml">
+    <Page Include="Resources\Styles\WindowsHelperDarkStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\WindowsHelperScrollViewer.xaml">
+    <Page Include="Resources\Styles\WindowsHelperScrollViewerStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\WindowsHelperTextBox.xaml">
+    <Page Include="Resources\Styles\WindowsHelperTextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\WindowsHelperWindowStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,6 +206,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Spotify\ViewModels\Pages\SpotifyPagesTemplateSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToastNotification\Common\ToastTemplateSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToastNotification\ToastWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -293,5 +315,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
