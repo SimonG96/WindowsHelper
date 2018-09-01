@@ -97,6 +97,79 @@ namespace Lib.Tools
             return Convert.ToBoolean(value);
         }
 
+        public bool Set(string key, int value)
+        {
+            if (_rootKey == null)
+                return false;
+
+            _rootKey.SetValue(key, value);
+            return true;
+        }
+
+        public int GetInt(string key, int defaultValue)
+        {
+            if (_rootKey == null)
+                return defaultValue;
+
+            object value = _rootKey.GetValue(key, defaultValue);
+            return Convert.ToInt32(value);
+        }
+
+        public bool Set(string key, double value)
+        {
+            if (_rootKey == null)
+                return false;
+
+            _rootKey.SetValue(key, value);
+            return true;
+        }
+
+        public double GetDouble(string key, double defaultValue)
+        {
+            if (_rootKey == null)
+                return defaultValue;
+
+            object value = _rootKey.GetValue(key, defaultValue);
+            return Convert.ToDouble(value);
+        }
+
+        public bool Set(string key, object value)
+        {
+            if (_rootKey == null)
+                return false;
+
+            switch (value)
+            {
+                case string stringValue:
+                    return Set(key, stringValue);
+                case bool boolValue:
+                    return Set(key, boolValue);
+                case int intValue:
+                    return Set(key, intValue);
+                case double doubleValue:
+                    return Set(key, doubleValue);
+                default:
+                    throw new InvalidOperationException($"No implementation for {value.GetType()}");
+            }
+        }
+
+        public T GetObject<T>(string key, T defaultValue)
+        {
+            if (_rootKey == null)
+                return defaultValue;
+
+            if (typeof(T) == typeof(string))
+                return (T) Convert.ChangeType(GetString(key, Convert.ToString(defaultValue)), typeof(T));
+            else if (typeof(T) == typeof(bool))
+                return (T) Convert.ChangeType(GetBool(key, Convert.ToBoolean(defaultValue)), typeof(T));
+            else if (typeof(T) == typeof(int))
+                return (T) Convert.ChangeType(GetInt(key, Convert.ToInt32(defaultValue)), typeof(T));
+            else if (typeof(T) == typeof(double))
+                return (T) Convert.ChangeType(GetDouble(key, Convert.ToDouble(defaultValue)), typeof(T));
+            else
+                throw new InvalidOperationException($"No implementation for {typeof(T)}");
+        }
+
         public int GetNumberOfValues()
         {
             return _rootKey.ValueCount;
