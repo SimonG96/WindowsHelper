@@ -7,9 +7,11 @@ namespace WindowsHelper.ToastNotification
     /// </summary>
     public partial class ToastWindow : Window
     {
-        public ToastWindow()
+        public ToastWindow(ToastWindowViewModel dataContext)
         {
             InitializeComponent();
+            DataContext = dataContext;
+            ContentControl.Content = dataContext;
         }
 
         #region Methods
