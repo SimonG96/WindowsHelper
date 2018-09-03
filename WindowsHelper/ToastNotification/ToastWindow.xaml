@@ -39,7 +39,7 @@
             </Button>
             
             <!--Content-->
-            <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding Type}" ContentTemplateSelector="{StaticResource SpotifyPagesTemplateSelector}"/> <!--TODO: Binding the type probably won't work... need the viewmodel or some other content here-->
+            <ContentControl Grid.Column="1" Grid.Row="1" ContentTemplateSelector="{StaticResource SpotifyPagesTemplateSelector}"/>
         </Grid>
     </Border>
 </Window>
