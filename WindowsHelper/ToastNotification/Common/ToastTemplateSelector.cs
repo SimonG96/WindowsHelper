@@ -18,10 +18,10 @@ namespace WindowsHelper.ToastNotification.Common
             if (item == null)
                 return null;
 
-            if (!(item is ToastType type)) //TODO: This probably won't work
-                throw new InvalidOperationException("Item is not a Toast Type");
+            if (!(item is  ToastWindowViewModel toastWindowViewModel))
+                throw new InvalidOperationException("Item is not a ToastWindowViewModel");
 
-            switch (type)
+            switch (toastWindowViewModel.Type)
             {
                 case ToastType.Info:
                     return InfoTemplate;
