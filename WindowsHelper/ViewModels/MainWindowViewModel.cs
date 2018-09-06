@@ -37,6 +37,7 @@ namespace WindowsHelper.ViewModels
         //  - add icons to notify Icon context menu?
         //  - write a Log File with exceptions usw.
         //  - (small popup)/toast notification from notify icon when exception occurs?
+        //  - add new style: SpotifySearchTextbox (Textbox with only a border at the bottom)
         //
         // MouseOver/Selection via Keyboard:
         //  - (d) MouseOver has to change a Property 'Selected'
