@@ -2,7 +2,9 @@
 using System.Windows;
 using System.Windows.Input;
 using WindowsHelper.Interfaces;
+using GalaSoft.MvvmLight.CommandWpf;
 using Lib.Tools;
+using Lib.Tools.Logging;
 
 namespace WindowsHelper.Settings
 {
@@ -44,6 +46,13 @@ namespace WindowsHelper.Settings
 
         [SettingsProperty]
         public KeyCombination KeyCombination { get; set; }
+
+
+        [SettingsProperty]
+        public ICommand OpenLogFileFolderCommand => new RelayCommand(Log.OpenLogFileFolder);
+
+        [SettingsProperty]
+        public ICommand ClearLogFilesCommand => new RelayCommand(Log.ClearLogFiles);
 
 
         #region Methods
