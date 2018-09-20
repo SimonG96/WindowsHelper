@@ -20,6 +20,7 @@ namespace WindowsHelper.ViewModels
     {
         //-----------------------------------------------------------------------------
         // TODO:
+        //  - add more functions to main text box
         //  - change Style of DropdownItems (Buttons, MouseOver, isEnabled ...)
         //  - (d) add possibility to use keyboard when moving through any dropdown list
         //  - add settings and settings window
@@ -27,7 +28,7 @@ namespace WindowsHelper.ViewModels
         //  - add grip or something similar to move the main window?
         //  - save settings
         //  - (d) add clear button to textbox
-        //  - try and use existing BooleanToVisibility Converter (check if it's default is collapsed or hidden for false) (seems to be collapsed which would be good)
+        //  - try and use [-existing-] self written BooleanToVisibility Converter (check if it's default is collapsed or hidden for false) (seems to be collapsed which would be good)
         //  - add each Plugin name to possible inputs
         //  - add settings for each plugin (even disabled plugins)
         //  - add search to settings
@@ -37,7 +38,8 @@ namespace WindowsHelper.ViewModels
         //  - add icons to notify Icon context menu?
         //  - write a Log File with exceptions usw.
         //  - (small popup)/toast notification from notify icon when exception occurs?
-        //  - add new style: SpotifySearchTextbox (Textbox with only a border at the bottom)
+        //  - update folder structure to be more like the one in ToastNotification (more subfolders)
+        //  - add info/impressum with links to used libs and license
         //
         // MouseOver/Selection via Keyboard:
         //  - (d) MouseOver has to change a Property 'Selected'
@@ -63,6 +65,8 @@ namespace WindowsHelper.ViewModels
         //
         // Additional Plugins:
         //  - Spotify Viewer/Player (use Thumbnail/Taskbar Toolbar)
+        //  - Telegram
+        //  - GitHub integration
         //-----------------------------------------------------------------------------
 
         private const string SETTING_KEY = "Setting.";
