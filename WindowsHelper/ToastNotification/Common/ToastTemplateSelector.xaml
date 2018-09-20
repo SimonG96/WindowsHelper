@@ -3,19 +3,22 @@
                     xmlns:local="clr-namespace:WindowsHelper.ToastNotification.Common"
                     xmlns:viewModels="clr-namespace:WindowsHelper.ToastNotification.ViewModels">
 
-    <DataTemplate x:Key="InfoTemplate" DataType="{x:Type viewModels:ToastWindowViewModel}">
+    <DataTemplate x:Key="InfoTemplate" DataType="{x:Type viewModels:InfoToastViewModel}">
+        <TextBlock Text="{Binding Message}" Foreground="{StaticResource LightForeground}" Margin="10" FontSize="16"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="WarningTemplate" DataType="{x:Type viewModels:WarningToastViewModel}">
 
     </DataTemplate>
 
-    <DataTemplate x:Key="WarningTemplate" DataType="{x:Type viewModels:ToastWindowViewModel}">
-
+    <DataTemplate x:Key="ErrorTemplate" DataType="{x:Type viewModels:ErrorToastViewModel}">
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <ContentControl Template="{StaticResource Error}" Foreground="{StaticResource ErrorForeground}" Margin="10,0" Height="30" Width="30"/>
+            <TextBlock Text="{Binding Message}" Foreground="{StaticResource LightForeground}" Margin="10,0" FontSize="16"/>
+        </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="ErrorTemplate" DataType="{x:Type viewModels:ToastWindowViewModel}">
-
-    </DataTemplate>
-
-    <DataTemplate x:Key="SpotifyTemplate" DataType="{x:Type viewModels:ToastWindowViewModel}">
+    <DataTemplate x:Key="SpotifyTemplate" DataType="{x:Type viewModels:SpotifyToastViewModel}">
 
     </DataTemplate>
 
