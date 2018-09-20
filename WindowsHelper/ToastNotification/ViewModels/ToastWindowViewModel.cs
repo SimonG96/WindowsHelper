@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using WindowsHelper.Interfaces;
 using WindowsHelper.ToastNotification.Enums;
 using GalaSoft.MvvmLight;
 
@@ -13,6 +14,13 @@ namespace WindowsHelper.ToastNotification.ViewModels
         private ToastBehaviour _behaviour;
         private ToastType _type;
 
+        public ToastWindowViewModel()
+        {
+            if (!IsInDesignMode)
+                throw new InvalidOperationException("This Constructor is for Design Time Usage only!");
+
+            Toast = new InfoToastViewModel("This is an Info Toast");
+        }
 
         public ToastWindowViewModel(ToastBehaviour behaviour, ToastType type)
         {
@@ -21,7 +29,7 @@ namespace WindowsHelper.ToastNotification.ViewModels
         }
 
 
-        public string Title
+        public string Title //TODO: Is currently never set
         {
             get => _title;
             set
@@ -51,8 +59,10 @@ namespace WindowsHelper.ToastNotification.ViewModels
             }
         }
 
+        public IToast Toast { get; set; }
 
-        public ControlTemplate IconTemplate //TODO: Implement getter
+
+        public ControlTemplate IconTemplate
         {
             get
             {
@@ -91,6 +101,7 @@ namespace WindowsHelper.ToastNotification.ViewModels
                 }
             }
         }
+
 
         #region Methods
 
