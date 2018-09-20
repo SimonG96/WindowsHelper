@@ -17,7 +17,7 @@ namespace WindowsHelper.Settings
 
         public SettingsEntryViewModel(string name, Type type, object value)
         {
-            Name = name;
+            Name = name.ConvertToReadableString();
             EntryType = type;
             Value = value;
         }
