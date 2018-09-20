@@ -9,6 +9,11 @@
         Title="Toast"
         WindowStyle="None"
         AllowsTransparency="True"
+        MinWidth="250" MaxWidth="450"
+        MinHeight="50" MaxHeight="350"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="Manual"
+        Topmost="True"
         Background="{StaticResource DarkBackground}"
         d:DesignHeight="450" d:DesignWidth="800"
         d:DataContext="{d:DesignInstance viewModels:ToastWindowViewModel, d:IsDesignTimeCreatable = True}">
@@ -39,7 +44,7 @@
             </Button>
             
             <!--Content-->
-            <ContentControl Grid.Column="1" Grid.Row="1" ContentTemplateSelector="{StaticResource SpotifyPagesTemplateSelector}"/>
+            <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding Toast}" ContentTemplateSelector="{StaticResource ToastTemplateSelector}"/>
         </Grid>
     </Border>
 </Window>
