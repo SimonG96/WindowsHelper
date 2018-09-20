@@ -26,6 +26,8 @@
 
                  <!-- Template Selectors -->
                  <ResourceDictionary Source="Spotify/ViewModels/Pages/SpotifyPagesTemplateSelector.xaml"/>
+                 <ResourceDictionary Source="ToastNotification/Common/ToastTemplateSelector.xaml"/>
+
              </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
     </Application.Resources>
