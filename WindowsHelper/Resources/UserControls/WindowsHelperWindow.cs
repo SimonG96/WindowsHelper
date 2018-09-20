@@ -88,6 +88,7 @@ namespace WindowsHelper.Resources.UserControls
 
         #endregion WindowButtons
 
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -154,7 +155,7 @@ namespace WindowsHelper.Resources.UserControls
         private void OnLoaded(object sender, RoutedEventArgs args)
         {
             SetDefaultSettings();
-            Loaded -= OnLoaded;
+            Loaded -= OnLoaded; //Only do that on the first start -> unsubscribe from the Loaded event again
         }
 
         private void SetDefaultSettings()
