@@ -5,7 +5,7 @@ namespace WindowsHelper.Settings
     [AttributeUsage(AttributeTargets.Property)]
     public class SettingsPropertyAttribute : Attribute //TODO: Is there any more information needed here? (e.g. name or something similar)
     {
-        public SettingsPropertyAttribute(bool save = false, bool setManual = true)
+        public SettingsPropertyAttribute(bool save = false, bool setManual = true) //TODO: Add settings group to sort settings, explanation that can be seen with a tooltip or popup (maybe with a '?')
         {
             Save = save;
             SetManual = setManual;
