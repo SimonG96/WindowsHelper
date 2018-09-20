@@ -21,11 +21,11 @@ namespace Lib.Tools
 
 
         [DllImport("user32.dll")]
-        public static extern IntPtr MonitorFromPoint(W32Point pt, uint dwFlags);
+        public static extern IntPtr MonitorFromPoint(W32Point pt, uint flags);
 
 
         [DllImport("user32.dll")]
-        public static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
+        public static extern IntPtr MonitorFromWindow(IntPtr handle, uint flags);
 
 
         [DllImport("user32.dll")]
@@ -231,6 +231,12 @@ namespace Lib.Tools
             }
 
             #endregion Methods
+        }
+
+        public static class MonitorOptions
+        {
+            public const uint MONITOR_DEFAULT_PRIMARY = 0x00000001;
+            public const uint MONITOR_DEFAULT_NEAREST = 0x00000002;
         }
     }
 }
