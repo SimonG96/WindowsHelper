@@ -3,6 +3,8 @@
 
     <!-- Backgrounds -->
     <SolidColorBrush x:Key="DarkBackground" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="SettingsEditBackground" Color="#3E3E3E"/>
+    <SolidColorBrush x:Key="SettingsButtonBackground" Color="#66FF4500"/>
 
     <!-- Foregrounds -->
     <SolidColorBrush x:Key="LightForeground" Color="#F1F2F3"/>
@@ -11,10 +13,13 @@
     <SolidColorBrush x:Key="Mouseover" Color="Gray"/>
     <SolidColorBrush x:Key="IconMouseover" Color="OrangeRed"/>
     <SolidColorBrush x:Key="ToggleButtonMouseover" Color="#FF3500"/>
+    <SolidColorBrush x:Key="WindowCloseMouseover" Color="Red"/>
+    <SolidColorBrush x:Key="SettingsButtonMouseover" Color="#BBFF4500"/>
 
     <!-- Borders -->
     <SolidColorBrush x:Key="LightBorder" Color="DimGray"/>
     <SolidColorBrush x:Key="ColoredBorder" Color="OrangeRed"/>
+    <SolidColorBrush x:Key="SettingsButtonBorder" Color="#DDFF4500"></SolidColorBrush>
 
     <!-- Selections -->
     <SolidColorBrush x:Key="SelectedTab" Color="OrangeRed"/>
