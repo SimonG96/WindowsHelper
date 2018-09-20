@@ -11,4 +11,33 @@
         <Setter Property="Padding" Value="5"/>
     </Style>
 
+    <Style x:Key="BottomBorderSearchboxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <!--<Setter Property="Padding" Value="30,5,5,5"/>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid Background="Transparent" IsHitTestVisible="True">
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <StackPanel Orientation="Horizontal">
+                                <ContentControl x:Name="SearchIcon" Height="20" Width="20" Template="{StaticResource Search}"/>
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ToggleButtonMouseover}"/>
+                            <Setter TargetName="SearchIcon" Property="Foreground" Value="{StaticResource ToggleButtonMouseover}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SelectedToggleButton}"/>
+                            <Setter TargetName="SearchIcon" Property="Foreground" Value="{StaticResource SelectedToggleButton}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
