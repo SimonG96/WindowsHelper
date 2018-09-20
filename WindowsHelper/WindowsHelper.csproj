@@ -109,6 +109,7 @@
     <Compile Include="Inputs\MenuInputs.cs" />
     <Compile Include="Interfaces\IPlugin.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
+    <Compile Include="Interfaces\IToast.cs" />
     <Compile Include="Interfaces\IWindowSettings.cs" />
     <Compile Include="NotifyIcon\NotifyIconViewModel.cs" />
     <Compile Include="Resources\UserControls\WindowsHelperWindow.cs" />
@@ -135,13 +136,18 @@
     <Compile Include="Spotify\ViewModels\Pages\SpotifyRecentlyPlayedPageViewModel.cs" />
     <Compile Include="Spotify\ViewModels\Pages\SpotifySongsPageViewModel.cs" />
     <Compile Include="Spotify\ViewModels\SpotifyWindowViewModel.cs" />
+    <Compile Include="ToastNotification\Common\Toast.cs" />
     <Compile Include="ToastNotification\Common\ToastTemplateSelector.cs" />
     <Compile Include="ToastNotification\Enums\ToastBehaviour.cs" />
     <Compile Include="ToastNotification\Enums\ToastType.cs" />
     <Compile Include="ToastNotification\ToastWindow.xaml.cs">
       <DependentUpon>ToastWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ToastNotification\ViewModels\ErrorToastViewModel.cs" />
+    <Compile Include="ToastNotification\ViewModels\InfoToastViewModel.cs" />
+    <Compile Include="ToastNotification\ViewModels\SpotifyToastViewModel.cs" />
     <Compile Include="ToastNotification\ViewModels\ToastWindowViewModel.cs" />
+    <Compile Include="ToastNotification\ViewModels\WarningToastViewModel.cs" />
     <Compile Include="ViewModels\DropdownItemViewModel.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Page Include="ClipboardManager\ClipboardManagerWindow.xaml">
