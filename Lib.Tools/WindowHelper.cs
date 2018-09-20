@@ -6,8 +6,6 @@ namespace Lib.Tools
 {
     public static class WindowHelper
     {
-        private const int MONITOR_DEFAULT_NEAREST = 0x00000002;
-
         public static void ShowCenteredToMouse(this Window window)
         {
             //IntPtr hWnd = Win32Api.GetForegroundWindow();
@@ -41,7 +39,7 @@ namespace Lib.Tools
 
         public static void Maximize(Window window, IntPtr hWnd)
         {
-            IntPtr monitor = Win32Api.MonitorFromWindow(hWnd, MONITOR_DEFAULT_NEAREST);
+            IntPtr monitor = Win32Api.MonitorFromWindow(hWnd, Win32Api.MonitorOptions.MONITOR_DEFAULT_NEAREST);
 
             if (monitor == IntPtr.Zero)
                 return;
@@ -59,6 +57,7 @@ namespace Lib.Tools
             window.Width = Math.Abs(rcWorkArea.Right - rcWorkArea.Left);
             window.Height = Math.Abs(rcWorkArea.Bottom - rcWorkArea.Top);
         }
+
 
         private static void PrepareWindow(Window window)
         {
@@ -93,7 +92,21 @@ namespace Lib.Tools
 
         private static Win32Api.W32Rect GetMonitor(Win32Api.W32Point position)
         {
-            IntPtr monitorHandle = Win32Api.MonitorFromPoint(position, MONITOR_DEFAULT_NEAREST); //0x00000002: return nearest monitor if pt is not contained in any monitor
+            IntPtr monitorHandle = Win32Api.MonitorFromPoint(position, Win32Api.MonitorOptions.MONITOR_DEFAULT_NEAREST); //0x00000002: return nearest monitor if pt is not contained in any monitor
+            Win32Api.W32MonitorInfo monitorInfo = new Win32Api.W32MonitorInfo
+            {
+                Size = Marshal.SizeOf(typeof(Win32Api.W32MonitorInfo))
+            };
+
+            if (!Win32Api.GetMonitorInfo(monitorHandle, ref monitorInfo))
+                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+
+            return monitorInfo.WorkArea;
+        }
+
+        public static Win32Api.W32Rect GetPrimaryMonitor()
+        {
+            IntPtr monitorHandle = Win32Api.MonitorFromPoint(new Win32Api.W32Point() {X = 0, Y = 0}, Win32Api.MonitorOptions.MONITOR_DEFAULT_PRIMARY);
             Win32Api.W32MonitorInfo monitorInfo = new Win32Api.W32MonitorInfo
             {
                 Size = Marshal.SizeOf(typeof(Win32Api.W32MonitorInfo))
