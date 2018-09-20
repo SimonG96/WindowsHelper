@@ -36,6 +36,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,11 +50,15 @@
     <Compile Include="ClipboardHelper.cs" />
     <Compile Include="CollectionHelper.cs" />
     <Compile Include="KeyCombination.cs" />
+    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="NumberHelper.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistryHelper.cs" />
     <Compile Include="StringHelper.cs" />
+    <Compile Include="Watermark\WatermarkAdorner.cs" />
+    <Compile Include="Watermark\WatermarkService.cs" />
     <Compile Include="Win32Api.cs" />
     <Compile Include="WindowHelper.cs" />
   </ItemGroup>
