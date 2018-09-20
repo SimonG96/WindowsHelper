@@ -153,21 +153,41 @@ namespace Lib.Tools
             }
         }
 
-        public T GetObject<T>(string key, T defaultValue)
+        //public T GetObject<T>(string key, T defaultValue)
+        //{
+        //    if (_rootKey == null)
+        //        return defaultValue;
+
+        //    if (typeof(T) == typeof(string))
+        //        return (T) Convert.ChangeType(GetString(key, Convert.ToString(defaultValue)), typeof(T));
+        //    else if (typeof(T) == typeof(bool))
+        //        return (T) Convert.ChangeType(GetBool(key, Convert.ToBoolean(defaultValue)), typeof(T));
+        //    else if (typeof(T) == typeof(int))
+        //        return (T) Convert.ChangeType(GetInt(key, Convert.ToInt32(defaultValue)), typeof(T));
+        //    else if (typeof(T) == typeof(double))
+        //        return (T) Convert.ChangeType(GetDouble(key, Convert.ToDouble(defaultValue)), typeof(T));
+        //    else
+        //        throw new InvalidOperationException($"No implementation for {typeof(T)}");
+        //}
+
+        public object GetObject(string key, object defaultValue)
         {
             if (_rootKey == null)
                 return defaultValue;
 
-            if (typeof(T) == typeof(string))
-                return (T) Convert.ChangeType(GetString(key, Convert.ToString(defaultValue)), typeof(T));
-            else if (typeof(T) == typeof(bool))
-                return (T) Convert.ChangeType(GetBool(key, Convert.ToBoolean(defaultValue)), typeof(T));
-            else if (typeof(T) == typeof(int))
-                return (T) Convert.ChangeType(GetInt(key, Convert.ToInt32(defaultValue)), typeof(T));
-            else if (typeof(T) == typeof(double))
-                return (T) Convert.ChangeType(GetDouble(key, Convert.ToDouble(defaultValue)), typeof(T));
-            else
-                throw new InvalidOperationException($"No implementation for {typeof(T)}");
+            switch (defaultValue)
+            {
+                case string defaultStringValue:
+                    return GetString(key, defaultStringValue);
+                case bool defaultBoolValue:
+                    return GetBool(key, defaultBoolValue);
+                case int defaultIntValue:
+                    return GetInt(key, defaultIntValue);
+                case double defaultDoubleValue:
+                    return GetDouble(key, defaultDoubleValue);
+                default:
+                    throw new InvalidOperationException($"No implementation for {defaultValue.GetType()}");
+            }
         }
 
         public int GetNumberOfValues()
